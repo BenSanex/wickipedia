@@ -72,43 +72,23 @@ class ArticlesController < ApplicationController
     @edits = @article.edits
   end
 
-  def publish_article
+  def publish
     authenticate_user!
     article = Article.find(params[:id])
-    article.publish
+    article.toggle_published
 
     redirect_to articles_path
   end
 
-  def unpublish_article
-    authenticate_user!
+  def feature
+    redirect_unless_admin
     article = Article.find(params[:id])
-    article.unpublish
-
-    redirect_to articles_path
-  end
-
-  def feature_article
-    redirect_unless_admin
-    @article = Article.find(params[:id])
-    @article.publish
-    @article.feature
-
-    # ===========
-    # articles = Article.where(published: true)
-    # @article = articles.find(params[:id])
-
-    # if @article.published
-    #   @article.feature
-    # end
-    redirect_to articles_path
-  end
-
-  def unfeature_article
-    redirect_unless_admin
-    @article = Article.find(params[:id])
-    @article.unfeature
-
+    if article.published
+      article.toggle_featured
+    else
+      article.toggle_published
+      article.toggle_featured
+    end
     redirect_to articles_path
   end
 

@@ -8,11 +8,8 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness:true
   validates :email, presence: true
 
-  def promote
-    update_attribute(:admin, true)
+  def toggle_admin
+    update_attribute(:admin, !self.admin)
   end
 
-  def demote
-    update_attribute(:admin, false)
-  end
 end

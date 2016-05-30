@@ -7,10 +7,9 @@
         <% if user.admin %>
           ADMIN
           |
-          <%= link_to "Demote", demote_from_admin_user_path(user), method: :put, data: { confirm: "Are you sure?" }  %>
+          <%= link_to "Demote", admin_user_path(user), method: :put, data: { confirm: "Are you sure?" }  %>
         <% else %>
-
-          <%= link_to "Promote", promote_to_admin_user_path(user), method: :put, data: { confirm: "Are you sure?" }  %>
+          <%= link_to "Promote", admin_user_path(user), method: :put, data: { confirm: "Are you sure?" }  %>
         <% end %>
         |
           <%= link_to "Delete", user, method: :delete, data: { confirm: "Are you sure?" } %>

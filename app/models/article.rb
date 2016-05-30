@@ -7,20 +7,12 @@ class Article < ActiveRecord::Base
   validates :title, :category_id, presence:true
 
 
-  def feature
-    update_attribute(:featured, true) if self.published
+  def toggle_featured
+    update_attribute(:featured, !self.featured)
   end
 
-  def unfeature
-    update_attribute(:featured, false) if self.featured
-  end
-
-  def publish
-    update_attribute(:published, true)
-  end
-
-  def unpublish
-    update_attribute(:published, false)
+  def toggle_published
+    update_attribute(:published, !self.published)
   end
 
   def self.matched_articles(search_term)

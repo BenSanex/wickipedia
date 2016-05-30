@@ -8,15 +8,9 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
-      put 'promote_to_admin'
-      put 'demote_from_admin'
+      put 'admin'
     end
   end
-
-  put '/:category/articles/:id/publish' => 'articles#publish_article', as: 'publish_article'
-  put '/:category/articles/:id/unpublish' => 'articles#unpublish_article', as: 'unpublish_article'
-  put '/:category/articles/:id/feature' => 'articles#feature_article', as: 'feature_article'
-  put '/:category/articles/:id/unfeature' => 'articles#unfeature_article', as: 'unfeature_article'
 
   get '/register' => 'users#new'
   get '/login' => 'sessions#new'
@@ -24,13 +18,15 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#logout'
   get '/search' => 'search#index', as: 'search'
 
-  get '/:category' => 'categories#show', as: 'a_category'
+  get '/:category' => 'categories#show', as: 'category'
 
   get '/:category/articles/:id' => 'articles#show', as: 'articles'
   get '/articles/new' => 'articles#new', as: 'new_article'
   post '/articles' => 'articles#create', as: 'create_article'
   get '/:category/articles/:id/edit' => 'articles#edit', as: 'edit_article'
   post '/:category/articles/:id/edit' => 'articles#update', as: 'update_article'
+  put '/:category/articles/:id/publish' => 'articles#publish', as: 'publish'
+  put '/:category/articles/:id/feature' => 'articles#feature', as: 'feature'
   delete '/:category/articles/:id' => 'articles#destroy', as: 'delete_article'
 
 

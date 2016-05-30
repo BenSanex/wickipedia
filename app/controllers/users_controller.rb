@@ -25,25 +25,24 @@ class UsersController < ApplicationController
   end
 
   def show
+    authenticate_user!
     @user = User.find(params[:id])
     @edits = @user.edits.reverse
     @comments = @user.comments.reverse
   end
 
   def destroy
+    redirect_unless_admin
     User.find(params[:id]).destroy
     redirect_to users_path
   end
 
-  def promote_to_admin
-    User.find(params[:id]).promote
+  def admin
+    redirect_unless_admin
+    User.find(params[:id]).toggle_admin
     redirect_to users_path
   end
 
-  def demote_from_admin
-    User.find(params[:id]).demote
-    redirect_to users_path
-  end
 
   private
 
